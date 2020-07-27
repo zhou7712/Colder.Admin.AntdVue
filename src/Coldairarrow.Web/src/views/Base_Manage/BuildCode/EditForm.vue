@@ -48,40 +48,40 @@ export default {
         buildTypes: [{ required: true, message: '必填' }],
         areaName: [{ required: true, message: '必填' }]
       }
-    };
+    }
   },
   methods: {
     init() {
-      this.visible = true;
-      this.entity = { buildTypes: ['0', '1', '2', '3'] };
+      this.visible = true
+      this.entity = { buildTypes: ['0', '1', '2', '3'] }
       this.$nextTick(() => {
-        this.$refs['form'].clearValidate();
-      });
+        this.$refs['form'].clearValidate()
+      })
     },
     openForm(tables, linkId) {
-      this.init();
-      this.entity.tables = tables;
-      this.entity.linkId = linkId;
+      this.init()
+      this.entity.tables = tables
+      this.entity.linkId = linkId
     },
     handleSubmit() {
       this.$refs['form'].validate(valid => {
         if (!valid) {
-          return;
+          return
         }
-        this.confirmLoading = true;
+        this.confirmLoading = true
         this.$http.post('/Base_Manage/BuildCode/Build', this.entity).then(resJson => {
-          this.confirmLoading = false;
+          this.confirmLoading = false
 
           if (resJson.Success) {
-            this.$message.success('操作成功!');
-            this.afterSubmit();
-            this.visible = false;
+            this.$message.success('操作成功!')
+            this.afterSubmit()
+            this.visible = false
           } else {
-            this.$message.error(resJson.Msg);
+            this.$message.error(resJson.Msg)
           }
-        });
-      });
+        })
+      })
     }
   }
-};
+}
 </script>

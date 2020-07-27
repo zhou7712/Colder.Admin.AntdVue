@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import CUploadImg from '@/components/CUploadImg/CUploadImg';
+import CUploadImg from '@/components/CUploadImg/CUploadImg'
 
 export default {
   components: {
@@ -26,15 +26,15 @@ export default {
       labelCol: { xs: { span: 24 }, sm: { span: 7 } },
       wrapperCol: { xs: { span: 24 }, sm: { span: 13 } },
       entity: { Img: require('@/assets/logo.png') }
-    };
+    }
   },
   methods: {
     getImgUrls() {
-      console.log(this.entity);
+      console.log(this.entity)
     },
     setImg() {
-      this.entity = { Img: require('@/assets/logo.png') };
+      this.entity = { Img: require('@/assets/logo.png') }
     }
   }
-};
+}
 </script>

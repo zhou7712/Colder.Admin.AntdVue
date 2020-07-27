@@ -37,13 +37,13 @@
   </a-spin>
 </template>
 <script>
-var uuid = require('node-uuid');
+var uuid = require('node-uuid')
 
 const columns = [
   { title: '权限名', dataIndex: 'Name', width: '30%', scopedSlots: { customRender: 'Name' } },
   { title: '权限值(唯一)', dataIndex: 'Value', width: '50%', scopedSlots: { customRender: 'Value' } },
   { title: '操作', dataIndex: 'operation', scopedSlots: { customRender: 'operation' } }
-];
+]
 export default {
   data() {
     return {
@@ -51,46 +51,46 @@ export default {
       columns,
       loading: false,
       parentId: null
-    };
+    }
   },
   methods: {
     handleChange(value, key, column) {
-      const newData = [...this.data];
-      const target = newData.filter(item => key === item.key)[0];
+      const newData = [...this.data]
+      const target = newData.filter(item => key === item.key)[0]
       if (target) {
-        target[column] = value;
-        this.data = newData;
+        target[column] = value
+        this.data = newData
       }
     },
     edit(key) {
-      const newData = [...this.data];
-      const target = newData.filter(item => key === item.key)[0];
+      const newData = [...this.data]
+      const target = newData.filter(item => key === item.key)[0]
       if (target) {
-        target.editable = true;
-        this.data = newData;
+        target.editable = true
+        this.data = newData
       }
     },
     save(key) {
-      const newData = [...this.data];
-      const target = newData.filter(item => key === item.key)[0];
+      const newData = [...this.data]
+      const target = newData.filter(item => key === item.key)[0]
       if (target) {
-        delete target.editable;
-        this.data = newData;
-        this.cacheData = newData.map(item => ({ ...item }));
+        delete target.editable
+        this.data = newData
+        this.cacheData = newData.map(item => ({ ...item }))
       }
     },
     cancel(key) {
-      const newData = [...this.data];
-      const target = newData.filter(item => key === item.key)[0];
+      const newData = [...this.data]
+      const target = newData.filter(item => key === item.key)[0]
       if (target) {
-        Object.assign(target, this.cacheData.filter(item => key === item.key)[0]);
-        delete target.editable;
-        this.data = newData;
+        Object.assign(target, this.cacheData.filter(item => key === item.key)[0])
+        delete target.editable
+        this.data = newData
       }
     },
     onDelete(key) {
-      const data = [...this.data];
-      this.data = data.filter(item => item.key !== key);
+      const data = [...this.data]
+      this.data = data.filter(item => item.key !== key)
     },
     handleAdd() {
       const newData = {
@@ -99,50 +99,50 @@ export default {
         Value: '权限值',
         Type: 2,
         ParentId: this.parentId
-      };
-      this.data = [...this.data, newData];
+      }
+      this.data = [...this.data, newData]
     },
     getPermissionList() {
-      return this.data;
+      return this.data
     },
     handleSave() {
-      this.loading = true;
+      this.loading = true
       this.$http
         .post('/Base_Manage/Base_Action/SavePermission', {
           parentId: this.parentId,
           permissionListJson: JSON.stringify(this.data)
         })
         .then(resJson => {
-          this.loading = false;
+          this.loading = false
           if (resJson.Success) {
-            this.$message.success('权限设置成功');
-            this.getDataList();
+            this.$message.success('权限设置成功')
+            this.getDataList()
           } else {
-            this.$message.error('操作失败');
+            this.$message.error('操作失败')
           }
-        });
+        })
     },
     getDataList() {
-      this.loading = true;
+      this.loading = true
       this.$http
         .post('/Base_Manage/Base_Action/GetPermissionList', {
           parentId: this.parentId
         })
         .then(resJson => {
-          this.loading = false;
-          resJson.Data.forEach(x => (x['key'] = uuid.v4()));
-          this.data = resJson.Data;
-        });
+          this.loading = false
+          resJson.Data.forEach(x => (x['key'] = uuid.v4()))
+          this.data = resJson.Data
+        })
     },
     init(parentId) {
-      this.parentId = parentId;
-      this.data = [];
+      this.parentId = parentId
+      this.data = []
       if (this.parentId) {
-        this.getDataList();
+        this.getDataList()
       }
     }
   }
-};
+}
 </script>
 <style scoped>
 .editable-row-operations a {

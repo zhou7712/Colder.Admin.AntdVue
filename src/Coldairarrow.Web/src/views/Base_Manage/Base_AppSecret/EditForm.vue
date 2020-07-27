@@ -45,47 +45,47 @@ export default {
         AppSecret: [{ required: true, message: '必填' }],
         AppName: [{ required: true, message: '必填' }]
       }
-    };
+    }
   },
   methods: {
     init() {
-      this.visible = true;
-      this.entity = {};
+      this.visible = true
+      this.entity = {}
       this.$nextTick(() => {
-        this.$refs['form'].clearValidate();
-      });
+        this.$refs['form'].clearValidate()
+      })
     },
     openForm(id) {
-      this.init();
+      this.init()
 
       if (id) {
         this.$http.post('/Base_Manage/Base_AppSecret/GetTheData', { id: id }).then(resJson => {
-          this.entity = resJson.Data;
+          this.entity = resJson.Data
           if (this.entity['Birthday']) {
-            this.entity['Birthday'] = moment(this.entity['Birthday']);
+            this.entity['Birthday'] = moment(this.entity['Birthday'])
           }
-        });
+        })
       }
     },
     handleSubmit() {
       this.$refs['form'].validate(valid => {
         if (!valid) {
-          return;
+          return
         }
-        this.confirmLoading = true;
+        this.confirmLoading = true
         this.$http.post('/Base_Manage/Base_AppSecret/SaveData', this.entity).then(resJson => {
-          this.confirmLoading = false;
+          this.confirmLoading = false
 
           if (resJson.Success) {
-            this.$message.success('操作成功!');
-            this.afterSubmit();
-            this.visible = false;
+            this.$message.success('操作成功!')
+            this.afterSubmit()
+            this.visible = false
           } else {
-            this.$message.error(resJson.Msg);
+            this.$message.error(resJson.Msg)
           }
-        });
-      });
+        })
+      })
     }
   }
-};
+}
 </script>

@@ -34,13 +34,11 @@
 </template>
 
 <script>
-/*
- * import NoticeIcon from '@/components/NoticeIcon'
- * import { mapActions, mapGetters } from 'vuex'
- */
-import OperatorCache from '@/utils/cache/OperatorCache';
-import TokenCache from '@/utils/cache/TokenCache';
-import ChangePwdForm from './ChangePwdForm';
+// import NoticeIcon from '@/components/NoticeIcon'
+// import { mapActions, mapGetters } from 'vuex'
+import OperatorCache from '@/utils/cache/OperatorCache'
+import TokenCache from '@/utils/cache/TokenCache'
+import ChangePwdForm from './ChangePwdForm'
 
 export default {
   name: 'UserMenu',
@@ -50,29 +48,27 @@ export default {
   },
   methods: {
     op() {
-      return OperatorCache.info;
+      return OperatorCache.info
     },
-    /*
-     * ...mapActions(['Logout']),
-     * ...mapGetters(['nickname', 'avatar']),
-     */
+    // ...mapActions(['Logout']),
+    // ...mapGetters(['nickname', 'avatar']),
     handleLogout() {
-      const that = this;
+      const that = this
 
       this.$confirm({
         title: '提示',
         content: '真的要注销登录吗 ?',
         onOk() {
-          TokenCache.deleteToken();
-          OperatorCache.clear();
-          location.reload();
+          TokenCache.deleteToken()
+          OperatorCache.clear()
+          location.reload()
           // that.$router.push({ path: '/user/login' })
         }
-      });
+      })
     },
     handleChangePwd() {
-      this.$refs.changePwd.open();
+      this.$refs.changePwd.open()
     }
   }
-};
+}
 </script>

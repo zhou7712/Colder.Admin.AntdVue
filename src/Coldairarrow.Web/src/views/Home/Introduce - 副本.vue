@@ -64,17 +64,16 @@ export default {
       this.selectedRowKeys = []
       const guid = this.getGuid()
       const headers = {
-        appId: 'PcAdmin',
+        appId: '1178957405992521728',
         time: moment().format('YYYY-MM-DD HH:mm:ss'),
         guid,
-        body: '',
-        appSecret: 'wtMaiTRPTT3hrf5e'
+        appSecret: 'IVh9LLSVFcoQPQ5K'
       }
       const signArr = []
       Object.keys(headers).forEach(key => {
         signArr.push(headers[key])
       })
-      headers.sign = this.$md5(signArr.join(''))
+      headers.sign = this.$md5(signArr.join)
       this.$http.get('/Test/PressTest2', { params: { id: 10 },
         headers: { ...headers } })
         .then(resJson => {

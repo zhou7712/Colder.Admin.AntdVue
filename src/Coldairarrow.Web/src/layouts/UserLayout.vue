@@ -31,28 +31,28 @@
 </template>
 
 <script>
-import RouteView from './RouteView';
-import { mixinDevice } from '@/utils/mixin';
+import RouteView from './RouteView'
+import { mixinDevice } from '@/utils/mixin'
 
 export default {
   name: 'UserLayout',
   components: { RouteView },
   mixins: [mixinDevice],
   data() {
-    return {};
+    return {}
   },
   mounted() {
-    document.body.classList.add('userLayout');
+    document.body.classList.add('userLayout')
   },
   beforeDestroy() {
-    document.body.classList.remove('userLayout');
+    document.body.classList.remove('userLayout')
   },
   methods: {
     getTitle() {
-      return process.env.VUE_APP_ProjectName;
+      return process.env.VUE_APP_ProjectName
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>

@@ -6,7 +6,7 @@
   </a-card>
 </template>
 <script>
-import WangEditor from '@/components/WangEditor/WangEditor';
+import WangEditor from '@/components/WangEditor/WangEditor'
 export default {
   components: {
     WangEditor
@@ -14,15 +14,15 @@ export default {
   data() {
     return {
       content: ''
-    };
+    }
   },
   methods: {
     getContent() {
-      console.log(this.content);
+      console.log(this.content)
     },
     setContent() {
-      this.content = '';
+      this.content = ''
     }
   }
-};
+}
 </script>

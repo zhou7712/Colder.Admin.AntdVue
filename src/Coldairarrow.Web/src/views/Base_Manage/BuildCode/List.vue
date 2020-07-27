@@ -42,20 +42,20 @@
 </template>
 
 <script>
-import EditForm from './EditForm';
+import EditForm from './EditForm'
 
 const columns = [
   { title: '表名', dataIndex: 'TableName', width: '20%' },
   { title: '描述', dataIndex: 'Description', width: '20%' },
   { title: '', dataIndex: 'action' }
-];
+]
 
 export default {
   components: {
     EditForm
   },
   mounted() {
-    this.init();
+    this.init()
   },
   data() {
     return {
@@ -69,46 +69,46 @@ export default {
       selectedRowKeys: [],
       dbs: [],
       linkId: ''
-    };
+    }
   },
   methods: {
     init() {
       this.$http
         .post('/Base_Manage/BuildCode/GetAllDbLink', {})
         .then(resJson => {
-          this.dbs = resJson.Data;
+          this.dbs = resJson.Data
           if (this.dbs && this.dbs.length > 0) {
-            this.linkId = this.dbs[0].Id;
+            this.linkId = this.dbs[0].Id
           }
         })
         .then(() => {
-          this.getDataList();
-        });
+          this.getDataList()
+        })
     },
     getDataList() {
-      this.selectedRowKeys = [];
-      this.loading = true;
+      this.selectedRowKeys = []
+      this.loading = true
       this.$http
         .post('/Base_Manage/BuildCode/GetDbTableList', {
           linkId: this.linkId
         })
         .then(resJson => {
-          this.loading = false;
-          this.data = resJson.Data;
-        });
+          this.loading = false
+          this.data = resJson.Data
+        })
     },
     onLinkChange(value) {
-      this.getDataList();
+      this.getDataList()
     },
     onSelectChange(selectedRowKeys) {
-      this.selectedRowKeys = selectedRowKeys;
+      this.selectedRowKeys = selectedRowKeys
     },
     hasSelected() {
-      return this.selectedRowKeys.length > 0;
+      return this.selectedRowKeys.length > 0
     },
     openForm() {
-      this.$refs.editForm.openForm(this.selectedRowKeys, this.linkId);
+      this.$refs.editForm.openForm(this.selectedRowKeys, this.linkId)
     }
   }
-};
+}
 </script>

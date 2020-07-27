@@ -17,26 +17,26 @@
   </div>
 </template>
 <script>
-import TypeHelper from '@/utils/helper/TypeHelper';
-const uuid = require('uuid');
+import TypeHelper from '@/utils/helper/TypeHelper'
+const uuid = require('uuid')
 
 export default {
   props: {
-    // value: , // 字符串或字符串数组
+    value: '', //字符串或字符串数组
     maxCount: {
       type: Number,
       default: 1
     }
   },
   mounted() {
-    if (this.maxCount === 1) {
-      this.value = this.value || '';
+    if (this.maxCount == 1) {
+      this.value = this.value || ''
     } else {
-      this.value = this.value || [];
+      this.value = this.value || []
     }
-    this.checkType(this.value);
+    this.checkType(this.value)
 
-    this.refresh();
+    this.refresh()
   },
   data() {
     return {
@@ -44,68 +44,69 @@ export default {
       previewImage: '',
       fileList: [],
       obj: {}
-    };
+    }
   },
   watch: {
     value(val) {
-      this.checkType(val);
+      this.checkType(val)
 
-      this.value = val;
-      this.refresh();
+      this.value = val
+      this.refresh()
     }
   },
   methods: {
     checkType(val) {
-      if (this.maxCount === 1 && TypeHelper.isArray(val)) {
-        throw 'maxCount=1时model不能为Array';
+      if (this.maxCount == 1 && TypeHelper.isArray(val)) {
+        throw 'maxCount=1时model不能为Array'
       }
       if (this.maxCount > 1 && !TypeHelper.isArray(val)) {
-        throw 'maxCount>1时model必须为Array<String>';
+        throw 'maxCount>1时model必须为Array<String>'
       }
     },
     refresh() {
       if (this.maxCount < 1) {
-        throw 'maxCount必须>=1';
+        throw 'maxCount必须>=1'
       }
       if (this.value) {
-        let urls = [];
+        let urls = []
 
         if (TypeHelper.isString(this.value)) {
-          urls.push(this.value);
+          urls.push(this.value)
         } else if (TypeHelper.isArray(this.value)) {
-          urls.push(...this.value);
+          urls.push(...this.value)
         } else {
-          throw 'value必须为字符串或数组';
+          throw 'value必须为字符串或数组'
         }
 
         this.fileList = urls.map(x => {
-          return { name: this.getFileName(x), uid: uuid.v4(), status: 'done', url: x };
-        });
+          return { name: this.getFileName(x), uid: uuid.v4(), status: 'done', url: x }
+        })
       }
     },
     handleCancel() {
-      this.previewVisible = false;
+      this.previewVisible = false
     },
     handlePreview(file) {
-      var url = file.url || file.response.url;
+      var url = file.url || file.response.url
 
-      window.open(url, 'tab');
+      window.open(url, 'tab')
     },
     handleChange({ fileList }) {
-      this.fileList = fileList;
-      var urls = this.fileList.filter(x => x.status === 'done').map(x => x.url || x.response.url);
-      var newValue = this.maxCount === 1 ? urls[0] : urls;
-      // 双向绑定
-      this.$emit('input', newValue);
+      this.fileList = fileList
+      var urls = this.fileList.filter(x => x.status == 'done').map(x => x.url || x.response.url)
+      var newValue = this.maxCount == 1 ? urls[0] : urls
+      //双向绑定
+      this.$emit('input', newValue)
     },
     getFileName(url) {
-      let reg = /^.*\/(.*?)$/;
-      let match = reg.test(url);
+      let reg = /^.*\/(.*?)$/
+      let match = reg.test(url)
       if (match) {
-        return RegExp.$1;
+        return RegExp.$1
+      } else {
+        return ''
       }
-      return '';
     }
   }
-};
+}
 </script>
