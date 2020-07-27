@@ -22,7 +22,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       form: this.$form.createForm(this),
       labelCol: { xs: { span: 24 }, sm: { span: 7 } },
@@ -34,15 +34,15 @@ export default {
     };
   },
   methods: {
-    init() {
+    init () {
       this.entity = {};
       this.visible = true;
       this.form.resetFields();
     },
-    open() {
+    open () {
       this.init();
     },
-    handleSubmit() {
+    handleSubmit () {
       this.form.validateFields((errors, values) => {
         // 校验成功
         if (!errors) {
@@ -62,7 +62,7 @@ export default {
         }
       });
     },
-    handleCancel() {
+    handleCancel () {
       this.visible = false;
     }
   }
