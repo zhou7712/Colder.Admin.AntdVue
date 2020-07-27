@@ -90,7 +90,7 @@
 </template>
 
 <script>
-import TokenCache from '@/utils/cache/TokenCache'
+import TokenCache from '@/utils/cache/TokenCache';
 
 export default {
   data() {
@@ -98,51 +98,51 @@ export default {
       loading: false,
       customActiveKey: 'tab1',
       form: this.$form.createForm(this)
-    }
+    };
   },
   mounted() {
-    var userName = localStorage.getItem('userName')
-    var password = localStorage.getItem('password')
+    var userName = localStorage.getItem('userName');
+    var password = localStorage.getItem('password');
     if (userName && password) {
-      this.form.setFieldsValue({ userName, password, savePwd: true })
+      this.form.setFieldsValue({ userName, password, savePwd: true });
     }
   },
   methods: {
     handleTabClick(key) {
-      this.customActiveKey = key
+      this.customActiveKey = key;
       // this.form.resetFields()
     },
     handleSubmit(e) {
-      e.preventDefault()
+      e.preventDefault();
 
       this.form.validateFields((errors, values) => {
-        //校验成功
+        // 校验成功
         if (!errors) {
-          var values = this.form.getFieldsValue()
-          this.loading = true
+          var values = this.form.getFieldsValue();
+          this.loading = true;
           this.$http.post('/Base_Manage/Home/SubmitLogin', values).then(resJson => {
-            this.loading = false
+            this.loading = false;
 
             if (resJson.Success) {
-              TokenCache.setToken(resJson.Data)
-              //保存密码
+              TokenCache.setToken(resJson.Data);
+              // 保存密码
               if (values['savePwd']) {
-                localStorage.setItem('userName', values['userName'])
-                localStorage.setItem('password', values['password'])
+                localStorage.setItem('userName', values['userName']);
+                localStorage.setItem('password', values['password']);
               } else {
-                localStorage.removeItem('userName')
-                localStorage.removeItem('password')
+                localStorage.removeItem('userName');
+                localStorage.removeItem('password');
               }
-              this.$router.push({ path: '/' })
+              this.$router.push({ path: '/' });
             } else {
-              this.$message.error(resJson.Msg)
+              this.$message.error(resJson.Msg);
             }
-          })
+          });
         }
-      })
+      });
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>

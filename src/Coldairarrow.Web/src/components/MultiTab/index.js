@@ -1,4 +1,4 @@
-import MultiTab from './MultiTab'
-import './index.less'
+import MultiTab from './MultiTab';
+import './index.less';
 
-export default MultiTab
+export default MultiTab;

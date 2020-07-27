@@ -10,6 +10,6 @@ const getters = {
   userInfo: state => state.user.info,
   addRouters: state => state.permission.addRouters,
   multiTab: state => state.app.multiTab
-}
+};
 
-export default getters
+export default getters;

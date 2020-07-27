@@ -31,40 +31,40 @@ export default {
       confirmLoading: false,
       formFields: {},
       entity: {}
-    }
+    };
   },
   methods: {
     init() {
-      this.entity = {}
-      this.visible = true
-      this.form.resetFields()
+      this.entity = {};
+      this.visible = true;
+      this.form.resetFields();
     },
     open() {
-      this.init()
+      this.init();
     },
     handleSubmit() {
       this.form.validateFields((errors, values) => {
-        //校验成功
+        // 校验成功
         if (!errors) {
-          this.entity = Object.assign(this.entity, this.form.getFieldsValue())
+          this.entity = Object.assign(this.entity, this.form.getFieldsValue());
 
-          this.confirmLoading = true
+          this.confirmLoading = true;
           this.$http.post('/Base_Manage/Home/ChangePwd', this.entity).then(resJson => {
-            this.confirmLoading = false
+            this.confirmLoading = false;
 
             if (resJson.Success) {
-              this.$message.success('操作成功!')
-              this.visible = false
+              this.$message.success('操作成功!');
+              this.visible = false;
             } else {
-              this.$message.error(resJson.Msg)
+              this.$message.error(resJson.Msg);
             }
-          })
+          });
         }
-      })
+      });
     },
     handleCancel() {
-      this.visible = false
+      this.visible = false;
     }
   }
-}
+};
 </script>

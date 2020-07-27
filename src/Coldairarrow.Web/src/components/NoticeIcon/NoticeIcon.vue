@@ -55,22 +55,22 @@ export default {
     return {
       loadding: false,
       visible: false
-    }
+    };
   },
   methods: {
     fetchNotice () {
       if (!this.visible) {
-        this.loadding = true
+        this.loadding = true;
         setTimeout(() => {
-          this.loadding = false
-        }, 2000)
+          this.loadding = false;
+        }, 2000);
       } else {
-        this.loadding = false
+        this.loadding = false;
       }
-      this.visible = !this.visible
+      this.visible = !this.visible;
     }
   }
-}
+};
 </script>
 
 <style lang="css">

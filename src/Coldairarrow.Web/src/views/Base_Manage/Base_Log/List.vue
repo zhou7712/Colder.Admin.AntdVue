@@ -66,18 +66,18 @@
 </template>
 
 <script>
-import moment from 'moment'
+import moment from 'moment';
 
 const columns = [
   { title: '内容', dataIndex: 'LogContent', width: '60%', scopedSlots: { customRender: 'LogContent' } },
   { title: '级别', dataIndex: 'Level', width: '5%' },
   { title: '时间', dataIndex: 'CreateTime', width: '10%' }
-]
+];
 
 export default {
   mounted() {
-    this.init()
-    this.getDataList()
+    this.init();
+    this.getDataList();
   },
   data() {
     return {
@@ -95,22 +95,22 @@ export default {
       visible: false,
       LogTypeList: [],
       LoglevelList: []
-    }
+    };
   },
   methods: {
     handleTableChange(pagination, filters, sorter) {
-      this.pagination = { ...pagination }
-      this.filters = { ...filters }
-      this.sorter = { ...sorter }
-      this.getDataList()
+      this.pagination = { ...pagination };
+      this.filters = { ...filters };
+      this.sorter = { ...sorter };
+      this.getDataList();
     },
     init() {
       this.$http.post('/Base_Manage/Base_Log/GetLoglevelList').then(resJson => {
-        this.LoglevelList = resJson.Data
-      })
+        this.LoglevelList = resJson.Data;
+      });
     },
     getDataList() {
-      this.loading = true
+      this.loading = true;
 
       this.$http
         .post('/Base_Manage/Base_Log/GetLogList', {
@@ -122,23 +122,23 @@ export default {
           ...this.filters
         })
         .then(resJson => {
-          this.loading = false
-          this.data = resJson.Data
-          const pagination = { ...this.pagination }
-          pagination.total = resJson.Total
-          this.pagination = pagination
-        })
+          this.loading = false;
+          this.data = resJson.Data;
+          const pagination = { ...this.pagination };
+          pagination.total = resJson.Total;
+          this.pagination = pagination;
+        });
     },
     rowClassName(row, index) {
-      var level = row['Level']
+      var level = row['Level'];
       if (level == 'Warn') {
-        return 'yellow'
+        return 'yellow';
       } else if (level == 'Error' || level == 'Fatal') {
-        return 'red'
+        return 'red';
       }
     }
   }
-}
+};
 </script>
 <style>
 .yellow {

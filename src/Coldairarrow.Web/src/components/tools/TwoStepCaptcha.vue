@@ -51,34 +51,34 @@ export default {
       stepLoading: false,
 
       form: null
-    }
+    };
   },
   methods: {
     handleStepOk () {
-      const vm = this
-      this.stepLoading = true
+      const vm = this;
+      this.stepLoading = true;
       this.form.validateFields((err, values) => {
         if (!err) {
-          console.log('values', values)
+          console.log('values', values);
           setTimeout(() => {
-            vm.stepLoading = false
-            vm.$emit('success', { values })
-          }, 2000)
-          return
+            vm.stepLoading = false;
+            vm.$emit('success', { values });
+          }, 2000);
+          return;
         }
-        this.stepLoading = false
-        this.$emit('error', { err })
-      })
+        this.stepLoading = false;
+        this.$emit('error', { err });
+      });
     },
     handleCancel () {
-      this.visible = false
-      this.$emit('cancel')
+      this.visible = false;
+      this.$emit('cancel');
     },
     onForgeStepCode () {
 
     }
   }
-}
+};
 </script>
 <style lang="less" scoped>
   .step-form-wrapper {

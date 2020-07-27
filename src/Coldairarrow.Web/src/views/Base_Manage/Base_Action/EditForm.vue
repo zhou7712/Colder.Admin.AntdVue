@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import PermissionList from './PermissionList'
+import PermissionList from './PermissionList';
 
 export default {
   props: {
@@ -78,52 +78,52 @@ export default {
         Type: [{ required: true, message: '必填' }],
         NeedAction: [{ required: true, message: '必填' }]
       }
-    }
+    };
   },
   methods: {
     init(id) {
-      this.visible = true
-      this.entity = {}
+      this.visible = true;
+      this.entity = {};
       this.$nextTick(() => {
-        this.$refs.permissionList.init(id)
-        this.$refs['form'].clearValidate()
-      })
+        this.$refs.permissionList.init(id);
+        this.$refs['form'].clearValidate();
+      });
 
       this.$http.post('/Base_Manage/Base_Action/GetMenuTreeList', {}).then(resJson => {
         if (resJson.Success) {
-          this.ParentIdTreeData = resJson.Data
+          this.ParentIdTreeData = resJson.Data;
         }
-      })
+      });
     },
     openForm(id) {
-      this.init(id)
+      this.init(id);
 
       if (id) {
         this.$http.post('/Base_Manage/Base_Action/GetTheData', { id: id }).then(resJson => {
-          this.entity = resJson.Data
-        })
+          this.entity = resJson.Data;
+        });
       }
     },
     handleSubmit() {
       this.$refs['form'].validate(valid => {
         if (!valid) {
-          return
+          return;
         }
-        this.confirmLoading = true
-        this.entity.permissionList = this.$refs.permissionList.getPermissionList()
+        this.confirmLoading = true;
+        this.entity.permissionList = this.$refs.permissionList.getPermissionList();
         this.$http.post('/Base_Manage/Base_Action/SaveData', this.entity).then(resJson => {
-          this.confirmLoading = false
+          this.confirmLoading = false;
 
           if (resJson.Success) {
-            this.$message.success('操作成功!')
-            this.afterSubmit()
-            this.visible = false
+            this.$message.success('操作成功!');
+            this.afterSubmit();
+            this.visible = false;
           } else {
-            this.$message.error(resJson.Msg)
+            this.$message.error(resJson.Msg);
           }
-        })
-      })
+        });
+      });
     }
   }
-}
+};
 </script>

@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import IconSelector from '@/components/IconSelector'
+import IconSelector from '@/components/IconSelector';
 
 export default {
   name: 'IconSelectorView',
@@ -21,16 +21,16 @@ export default {
   data () {
     return {
       currentSelectedIcon: 'pause-circle'
-    }
+    };
   },
   methods: {
     handleIconChange (icon) {
-      console.log('change Icon', icon)
-      this.$message.info(<span>选中图标 <code>{icon}</code></span>)
+      console.log('change Icon', icon);
+      this.$message.info(<span>选中图标 <code>{icon}</code></span>);
     },
     changeIcon (type) {
-      this.currentSelectedIcon = type
+      this.currentSelectedIcon = type;
     }
   }
-}
+};
 </script>

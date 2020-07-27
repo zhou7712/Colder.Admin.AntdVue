@@ -34,8 +34,8 @@
   </div>
 </template>
 <script>
-import ChartCard from '@/components/ChartCard/ChartCard'
-import Trend from '@/components/ChartCard/Trend'
+import ChartCard from '@/components/ChartCard/ChartCard';
+import Trend from '@/components/ChartCard/Trend';
 
 export default {
   components: {
@@ -45,7 +45,7 @@ export default {
   data () {
     return {
       loading: false
-    }
+    };
   }
-}
+};
 </script>

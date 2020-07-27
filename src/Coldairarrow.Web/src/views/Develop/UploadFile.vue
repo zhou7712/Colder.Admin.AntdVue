@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import CUploadFile from '@/components/CUploadFile/CUploadFile'
+import CUploadFile from '@/components/CUploadFile/CUploadFile';
 
 export default {
   components: {
@@ -26,15 +26,15 @@ export default {
       labelCol: { xs: { span: 24 }, sm: { span: 7 } },
       wrapperCol: { xs: { span: 24 }, sm: { span: 13 } },
       entity: { File: require('@/assets/logo.png') }
-    }
+    };
   },
   methods: {
     getFileUrls() {
-      console.log(this.entity)
+      console.log(this.entity);
     },
     setFile() {
-      this.entity = { File: require('@/assets/logo.png') }
+      this.entity = { File: require('@/assets/logo.png') };
     }
   }
-}
+};
 </script>

@@ -55,18 +55,18 @@
 </template>
 
 <script>
-import EditForm from './EditForm'
+import EditForm from './EditForm';
 const columns = [
   { title: '部门名', dataIndex: 'Text', width: '20%' },
   { title: '操作', dataIndex: 'action', scopedSlots: { customRender: 'action' } }
-]
+];
 
 export default {
   components: {
     EditForm
   },
   mounted() {
-    this.getDataList()
+    this.getDataList();
   },
   data() {
     return {
@@ -83,18 +83,18 @@ export default {
       queryParam: {},
       visible: false,
       selectedRowKeys: []
-    }
+    };
   },
   methods: {
     handleTableChange(pagination, filters, sorter) {
-      this.pagination = { ...pagination }
-      this.filters = { ...filters }
-      this.sorter = { ...sorter }
-      this.getDataList()
+      this.pagination = { ...pagination };
+      this.filters = { ...filters };
+      this.sorter = { ...sorter };
+      this.getDataList();
     },
     getDataList() {
-      this.selectedRowKeys = []
-      this.loading = true
+      this.selectedRowKeys = [];
+      this.loading = true;
       this.$http
         .post('/Base_Manage/Base_Department/GetTreeDataList', {
           PageIndex: this.pagination.current,
@@ -104,49 +104,49 @@ export default {
           ...this.filters
         })
         .then(resJson => {
-          this.loading = false
-          this.data = resJson.Data
-          const pagination = { ...this.pagination }
-          pagination.total = resJson.Total
-          this.pagination = pagination
-        })
+          this.loading = false;
+          this.data = resJson.Data;
+          const pagination = { ...this.pagination };
+          pagination.total = resJson.Total;
+          this.pagination = pagination;
+        });
     },
     onSelectChange(selectedRowKeys) {
-      this.selectedRowKeys = selectedRowKeys
+      this.selectedRowKeys = selectedRowKeys;
     },
     hasSelected() {
-      return this.selectedRowKeys.length > 0
+      return this.selectedRowKeys.length > 0;
     },
     hanldleAdd() {
-      this.$refs.editForm.openForm()
+      this.$refs.editForm.openForm();
     },
     handleEdit(id) {
-      this.$refs.editForm.openForm(id)
+      this.$refs.editForm.openForm(id);
     },
     handleDelete(ids) {
-      var thisObj = this
+      var thisObj = this;
       this.$confirm({
         title: '确认删除吗?',
         onOk() {
           return new Promise((resolve, reject) => {
-            thisObj.submitDelete(ids, resolve, reject)
-          })
+            thisObj.submitDelete(ids, resolve, reject);
+          });
         }
-      })
+      });
     },
     submitDelete(ids, resolve, reject) {
       this.$http.post('/Base_Manage/Base_Department/DeleteData', ids).then(resJson => {
-        resolve()
+        resolve();
 
         if (resJson.Success) {
-          this.$message.success('操作成功!')
+          this.$message.success('操作成功!');
 
-          this.getDataList()
+          this.getDataList();
         } else {
-          this.$message.error(resJson.Msg)
+          this.$message.error(resJson.Msg);
         }
-      })
+      });
     }
   }
-}
+};
 </script>

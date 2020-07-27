@@ -7,22 +7,22 @@
 </template>
 
 <script>
-import zhCN from 'ant-design-vue/es/locale/zh_CN'
-import moment from 'moment'
-import 'moment/locale/zh-cn'
-moment.locale('zh-cn')
+import zhCN from 'ant-design-vue/es/locale/zh_CN';
+import moment from 'moment';
+import 'moment/locale/zh-cn';
 
-import { AppDeviceEnquire } from '@/utils/mixin'
+import { AppDeviceEnquire } from '@/utils/mixin';
+moment.locale('zh-cn');
 
 export default {
   mixins: [AppDeviceEnquire],
   data() {
     return {
       zhCN
-    }
+    };
   },
   mounted() {}
-}
+};
 </script>
 <style>
 #app {

@@ -1,21 +1,21 @@
-import router from '@/router'
-import { Axios } from '@/utils/plugin/axios-plugin'
-import { BasicLayout, PageView } from '@/layouts'
-import ProcessHelper from '@/utils/helper/ProcessHelper'
-import defaultSettings from '@/config/defaultSettings'
-var uuid = require('node-uuid')
+import router from '@/router';
+import { Axios } from '@/utils/plugin/axios-plugin';
+import { BasicLayout, PageView } from '@/layouts';
+import ProcessHelper from '@/utils/helper/ProcessHelper';
+import defaultSettings from '@/config/defaultSettings';
+var uuid = require('node-uuid');
 
-let inited = false
-let addRouter = []
+let inited = false;
+let addRouter = [];
 
 export const getAddRouter = () => {
-  return addRouter
-}
+  return addRouter;
+};
 
 // 前端未找到页面路由（固定不用改）
 const notFoundRouter = {
   path: '*', redirect: '/404', hidden: true
-}
+};
 
 // 开发模式额外路由
 const devRouter = [
@@ -53,21 +53,21 @@ const devRouter = [
       }
     ]
   }
-]
+];
 export const initRouter = (to, from, next) => {
   return new Promise((res, rej) => {
     if (inited) {
-      res()
+      res();
     } else {
       generatorDynamicRouter().then(dynamicRouter => {
-        router.addRoutes(dynamicRouter)
-        addRouter = dynamicRouter
-        inited = true
-        next({ ...to, replace: true })
-      })
+        router.addRoutes(dynamicRouter);
+        addRouter = dynamicRouter;
+        inited = true;
+        next({ ...to, replace: true });
+      });
     }
-  })
-}
+  });
+};
 
 /**
  * 获取路由菜单信息
@@ -82,9 +82,9 @@ const generatorDynamicRouter = () => {
     // ajax
     getRouterByUser().then(res => {
       // console.log('菜单:', res)
-      let allRouters = []
+      let allRouters = [];
 
-      //首页根路由
+      // 首页根路由
       let rootRouter = {
         // 路由地址 动态拼接生成如 /dashboard/workplace
         path: '/',
@@ -96,22 +96,22 @@ const generatorDynamicRouter = () => {
         // meta: 页面标题, 菜单图标, 页面权限(供指令权限用，可去掉)
         meta: { title: '首页' },
         children: []
-      }
-      allRouters.push(rootRouter)
+      };
+      allRouters.push(rootRouter);
 
       if (!ProcessHelper.isProduction()) {
-        res.push(...devRouter)
+        res.push(...devRouter);
       }
 
-      rootRouter.children = generator(res)
-      allRouters.push(notFoundRouter)
+      rootRouter.children = generator(res);
+      allRouters.push(notFoundRouter);
 
-      resolve(allRouters)
+      resolve(allRouters);
     }).catch(err => {
-      reject(err)
-    })
-  })
-}
+      reject(err);
+    });
+  });
+};
 
 /**
  * 获取后端路由信息的 axios API
@@ -122,11 +122,11 @@ const getRouterByUser = () => {
   return new Promise((resolve, reject) => {
     Axios.post('/Base_Manage/Home/GetOperatorMenuList', {}).then(resJson => {
       if (resJson.Success) {
-        resolve(resJson.Data)
+        resolve(resJson.Data);
       }
-    })
-  })
-}
+    });
+  });
+};
 
 /**
  * 格式化 后端 结构信息并递归生成层级路由表
@@ -137,12 +137,12 @@ const getRouterByUser = () => {
  */
 const generator = (routerMap, parent) => {
   return routerMap.map(item => {
-    let hasChildren = item.children && item.children.length > 0
-    let component = {}
+    let hasChildren = item.children && item.children.length > 0;
+    let component = {};
     if (hasChildren) {
-      component = PageView
+      component = PageView;
     } else if (item.path) {
-      component = () => import(`@/views${item.path}`)
+      component = () => import(`@/views${item.path}`);
     }
     let currentRouter = {
       path: '',
@@ -152,23 +152,23 @@ const generator = (routerMap, parent) => {
       component: component,
       // meta: 页面标题, 菜单图标, 页面权限(供指令权限用，可去掉)
       meta: { title: item.title, icon: item.icon || undefined }
-    }
+    };
 
-    //有子菜单
+    // 有子菜单
     if (hasChildren) {
-      currentRouter.path = `/${uuid.v4()}`
-    } else if (item.path) {//页面
-      currentRouter.path = item.path
-      currentRouter.path = currentRouter.path.replace('//', '/')
+      currentRouter.path = `/${uuid.v4()}`;
+    } else if (item.path) { // 页面
+      currentRouter.path = item.path;
+      currentRouter.path = currentRouter.path.replace('//', '/');
     }
 
     // 重定向
-    item.redirect && (currentRouter.redirect = item.redirect)
+    item.redirect && (currentRouter.redirect = item.redirect);
     // 是否有子菜单，并递归处理
     if (hasChildren) {
       // Recursion
-      currentRouter.children = generator(item.children, currentRouter)
+      currentRouter.children = generator(item.children, currentRouter);
     }
-    return currentRouter
-  })
-}
+    return currentRouter;
+  });
+};

@@ -72,19 +72,19 @@
 </template>
 
 <script>
-import moment from 'moment'
+import moment from 'moment';
 
 const columns = [
   { title: '内容', dataIndex: 'LogContent', width: '50%', scopedSlots: { customRender: 'LogContent' } },
   { title: '类别', dataIndex: 'LogType', width: '10%' },
   { title: '操作人', dataIndex: 'CreatorRealName', width: '5%' },
   { title: '时间', dataIndex: 'CreateTime', width: '10%' }
-]
+];
 
 export default {
   mounted() {
-    this.init()
-    this.getDataList()
+    this.init();
+    this.getDataList();
   },
   data() {
     return {
@@ -101,22 +101,22 @@ export default {
       queryParam: {},
       visible: false,
       LogTypeList: []
-    }
+    };
   },
   methods: {
     handleTableChange(pagination, filters, sorter) {
-      this.pagination = { ...pagination }
-      this.filters = { ...filters }
-      this.sorter = { ...sorter }
-      this.getDataList()
+      this.pagination = { ...pagination };
+      this.filters = { ...filters };
+      this.sorter = { ...sorter };
+      this.getDataList();
     },
     init() {
       this.$http.post('/Base_Manage/Base_UserLog/GetLogTypeList').then(resJson => {
-        this.LogTypeList = resJson.Data
-      })
+        this.LogTypeList = resJson.Data;
+      });
     },
     getDataList() {
-      this.loading = true
+      this.loading = true;
       this.$http
         .post('/Base_Manage/Base_UserLog/GetLogList', {
           PageIndex: this.pagination.current,
@@ -127,13 +127,13 @@ export default {
           Search: this.queryParam
         })
         .then(resJson => {
-          this.loading = false
-          this.data = resJson.Data
-          const pagination = { ...this.pagination }
-          pagination.total = resJson.Total
-          this.pagination = pagination
-        })
+          this.loading = false;
+          this.data = resJson.Data;
+          const pagination = { ...this.pagination };
+          pagination.total = resJson.Total;
+          this.pagination = pagination;
+        });
     }
   }
-}
+};
 </script>

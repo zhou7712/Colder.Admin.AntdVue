@@ -1,7 +1,7 @@
 <template>
   <a-card :bordered="false">
     <div>
-      <!-- <p>本框架为.NET Core3.0+Ant Design Vue版1231</p>
+      <p>本框架为.NET Core3.0+Ant Design Vue版1231</p>
       <p>本框架旨在极大的提高开发效率</p>
       <p>
         使用技术栈：<br />
@@ -28,71 +28,73 @@
         <br />
         <br />
         相关链接:<br />
-        本框架链接,欢迎点星支持:<a href="https://github.com/Coldairarrow/Colder.Admin.AntdVue" target="_blank"
-          >https://github.com/Coldairarrow/Colder.Admin.AntdVue</a
+        本框架链接,欢迎点星支持:
+        <a href="https://github.com/Coldairarrow/Colder.Admin.AntdVue" target="_blank">
+          https://github.com/Coldairarrow/Colder.Admin.AntdVue
+        </a><br />
+        个人GitHub,欢迎点星支持:
+        <a href="https://github.com/Coldairarrow" target="_blank">
+          https://github.com/Coldairarrow</a><br />
+        个人博客:
+        <a href="https://www.cnblogs.com/coldairarrow/" target="_blank">
+          https://www.cnblogs.com/coldairarrow/</a><br />
+        .NET Core3.0 下载:<a href="https://dotnet.microsoft.com/download" target="_blank">
+          https://dotnet.microsoft.com/download
+        </a
         ><br />
-        个人GitHub,欢迎点星支持:<a href="https://github.com/Coldairarrow" target="_blank"
-          >https://github.com/Coldairarrow</a
-        ><br />
-        个人博客:<a href="https://www.cnblogs.com/coldairarrow/" target="_blank"
-          >https://www.cnblogs.com/coldairarrow/</a
-        ><br />
-        .NET Core3.0 下载:<a href="https://dotnet.microsoft.com/download" target="_blank"
-          >https://dotnet.microsoft.com/download</a
-        ><br />
-        Vue官网:<a href="https://cn.vuejs.org/" target="_blank">https://cn.vuejs.org/</a><br />
-        Ant Design Vue官网:<a href="https://www.antdv.com/docs/vue/introduce-cn/" target="_blank"
-          >https://www.antdv.com/docs/vue/introduce-cn/</a
-        ><br />
+        Vue官网:
+        <a href="https://cn.vuejs.org/" target="_blank">https://cn.vuejs.org/</a><br />
+        Ant Design Vue官网:<a href="https://www.antdv.com/docs/vue/introduce-cn/" target="_blank">
+          https://www.antdv.com/docs/vue/introduce-cn/</a><br />
         Ant Design Vue pro官网:<a href="https://pro.loacg.com/" target="_blank">https://pro.loacg.com/</a><br /><br />
         个人QQ:862520575(欢迎商务合作及技术咨询)<br />
         QQ技术交流群2:579202910
-      </p> -->
+      </p>
     </div>
   </a-card>
 </template>
 
 <script>
-import moment from 'moment'
+import moment from 'moment';
 export default {
   mounted () {
-    this.getDataList()
+    this.getDataList();
   },
 
   methods: {
     getDataList () {
-      this.selectedRowKeys = []
-      const guid = this.getGuid()
+      this.selectedRowKeys = [];
+      const guid = this.getGuid();
       const headers = {
         appId: 'PcAdmin',
         time: moment().format('YYYY-MM-DD HH:mm:ss'),
         guid,
         body: '',
         appSecret: 'wtMaiTRPTT3hrf5e'
-      }
-      const signArr = []
+      };
+      const signArr = [];
       Object.keys(headers).forEach(key => {
-        signArr.push(headers[key])
-      })
-      headers.sign = this.$md5(signArr.join(''))
+        signArr.push(headers[key]);
+      });
+      headers.sign = this.$md5(signArr.join(''));
       this.$http.get('/Test/PressTest2', { params: { id: 10 },
         headers: { ...headers } })
         .then(resJson => {
-          console.log(resJson.Msg)
-        })
+          console.log(resJson.Msg);
+        });
     },
     getGuid () {
-      var guid = ''
-      for (var i = 1; i <= 32; i++) {
-        var flag = Math.floor(Math.random() * 10)
+      let guid = '';
+      for (let i = 1; i <= 32; i++) {
+        const flag = Math.floor(Math.random() * 10);
         // 如果是偶数就设置成为
         if (flag % 2 === 0) {
           // 全大写
-          var n = Math.floor(flag * 2.4) + 65
+          const n = Math.floor(flag * 2.4) + 65;
           // 全小写
-          // var n = Math.floor(flag*2.4) + 97;
-          var n = String.fromCharCode(n)
-          guid += n;
+          /* var n = Math.floor(flag*2.4) + 97; */
+          const m = String.fromCharCode(n);
+          guid += m;
         } else {
           guid += flag;
         }
@@ -100,5 +102,5 @@ export default {
       return guid;
     }
   }
-}
+};
 </script>

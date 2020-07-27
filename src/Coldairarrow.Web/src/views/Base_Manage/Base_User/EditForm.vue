@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import moment from 'moment'
+import moment from 'moment';
 export default {
   props: {
     afterSubmit: {
@@ -71,57 +71,57 @@ export default {
         RealName: [{ required: true, message: '必填' }],
         Sex: [{ required: true, message: '必填' }]
       }
-    }
+    };
   },
   methods: {
     init() {
-      this.visible = true
-      this.entity = {}
+      this.visible = true;
+      this.entity = {};
       this.$nextTick(() => {
-        this.$refs['form'].clearValidate()
-      })
+        this.$refs['form'].clearValidate();
+      });
       this.$http.post('/Base_Manage/Base_Department/GetTreeDataList', {}).then(resJson => {
         if (resJson.Success) {
-          this.DepartmentIdTreeData = resJson.Data
+          this.DepartmentIdTreeData = resJson.Data;
         }
-      })
+      });
       this.$http.post('/Base_Manage/Base_Role/GetDataList', {}).then(resJson => {
         if (resJson.Success) {
-          this.RoleOptionList = resJson.Data
+          this.RoleOptionList = resJson.Data;
         }
-      })
+      });
     },
     openForm(id) {
-      this.init()
+      this.init();
 
       if (id) {
         this.$http.post('/Base_Manage/Base_User/GetTheData', { id: id }).then(resJson => {
-          this.entity = resJson.Data
+          this.entity = resJson.Data;
           if (this.entity['Birthday']) {
-            this.entity['Birthday'] = moment(this.entity['Birthday'])
+            this.entity['Birthday'] = moment(this.entity['Birthday']);
           }
-        })
+        });
       }
     },
     handleSubmit() {
       this.$refs['form'].validate(valid => {
         if (!valid) {
-          return
+          return;
         }
-        this.confirmLoading = true
+        this.confirmLoading = true;
         this.$http.post('/Base_Manage/Base_User/SaveData', this.entity).then(resJson => {
-          this.confirmLoading = false
+          this.confirmLoading = false;
 
           if (resJson.Success) {
-            this.$message.success('操作成功!')
-            this.afterSubmit()
-            this.visible = false
+            this.$message.success('操作成功!');
+            this.afterSubmit();
+            this.visible = false;
           } else {
-            this.$message.error(resJson.Msg)
+            this.$message.error(resJson.Msg);
           }
-        })
-      })
+        });
+      });
     }
   }
-}
+};
 </script>
